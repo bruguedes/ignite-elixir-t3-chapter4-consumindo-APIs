@@ -1,12 +1,28 @@
 defmodule ApiconsumerWeb.Router do
   use ApiconsumerWeb, :router
 
+  alias ApiconsumerWeb.Plugs.UUIDChecker
+
   pipeline :api do
     plug :accepts, ["json"]
+    plug UUIDChecker
+  end
+
+  # pipeline de verificação de autenticação.
+  pipeline :auth do
+    plug ApiconsumerWeb.Auth.Pipeline
   end
 
   scope "/api", ApiconsumerWeb do
     pipe_through :api
+
+    post "/users", UsersController, :create
+    post "/users/singin", UsersController, :sing_in
+  end
+
+  # Rotas que necessitam de autenticação
+  scope "/api", ApiconsumerWeb do
+    pipe_through [:api, :auth]
 
     get "/github/:user", GetDataController, :show
   end

@@ -12,6 +12,7 @@ config :apiconsumer, Apiconsumer.Repo,
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 
+# configurção para uso do mock
 config :apiconsumer, ApiconsumerWeb.GetDataController,
   get_repos_adapter: Apiconsumer.GitHub.ClientMock
 

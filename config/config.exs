@@ -13,6 +13,19 @@ config :apiconsumer,
 config :apiconsumer, ApiconsumerWeb.GetDataController,
   get_repos_adapter: Apiconsumer.GitHub.Client
 
+# Configuração para determinar que a Pk do tipo UUID
+config :apiconsumer, Apiconsumer.Repo, migration_primary_key: [type: :binary_id]
+
+# Configuração para lib guardian
+config :apiconsumer, ApiconsumerWeb.Auth.Guardian,
+  issuer: "apiconsumer",
+  secret_key: "XCvD3bE+o76K7cU2y5OpDANfQytPWA0gvs5m7bVdRhUQvPqo/oq68l0JtFTrFg2V"
+
+# Configuração para utilizar o pipeline do guardian para usar rota autenticada
+config :apiconsumer, ApiconsumerWeb.Auth.Pipeline,
+  module: ApiconsumerWeb.Auth.Guardian,
+  error_handler: ApiconsumerWeb.Auth.ErrorHandler
+
 # Configures the endpoint
 config :apiconsumer, ApiconsumerWeb.Endpoint,
   url: [host: "localhost"],

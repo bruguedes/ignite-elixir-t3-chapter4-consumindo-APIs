@@ -1,6 +1,6 @@
-defmodule Apiconsumer.User.InputTest do
+defmodule Apiconsumer.GitHub.InputTest do
   use ExUnit.Case
-  alias Apiconsumer.User.Input
+  alias Apiconsumer.GitHub.Input
 
   describe "build_changeset/1" do
     test "sucess, when params are valid" do

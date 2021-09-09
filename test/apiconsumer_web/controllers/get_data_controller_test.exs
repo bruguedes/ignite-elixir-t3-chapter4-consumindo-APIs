@@ -4,9 +4,21 @@ defmodule ApiconsumerWeb.GetDataControllerTest do
   import Mox
   alias Apiconsumer.Error
   alias Apiconsumer.GitHub.ClientMock
+  alias Apiconsumer.Users.Create
+  alias ApiconsumerWeb.Auth.Guardian
 
   describe "show/1" do
-    test "sucess, when user name a valid", %{conn: conn} do
+    setup do
+      {:ok, user} = Create.call(%{"password" => "123456"})
+      {:ok, token, _claims} = Guardian.encode_and_sign(user)
+
+      {:ok, token: token}
+    end
+
+    test "sucess, when user name a valid", %{conn: conn, token: token} do
+      # {:ok, user} = Create.call(%{"password" => "123456"})
+      # {:ok, token, _claims} = Guardian.encode_and_sign(user)
+      conn = put_req_header(conn, "authorization", "Bearer #{token}")
       params = "test"
 
       expect_response =
@@ -33,7 +45,8 @@ defmodule ApiconsumerWeb.GetDataControllerTest do
       assert response == expect_response
     end
 
-    test "fail, when user name a invalid", %{conn: conn} do
+    test "fail, when user name a invalid", %{conn: conn, token: token} do
+      conn = put_req_header(conn, "authorization", "Bearer #{token}")
       params = "invalid_user"
 
       expect_response = ~s({"message":"user not found!"})

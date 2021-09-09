@@ -7,6 +7,4 @@ defmodule ApiconsumerWeb.GetDataView do
       repos: repos
     }
   end
-
-  # def render("user.json", %{user: %User{} = user}), do: %{user: user}
 end

@@ -1,4 +1,4 @@
-defmodule Apiconsumer.User.Input do
+defmodule Apiconsumer.GitHub.Input do
   use Ecto.Schema
   import Ecto.Changeset
   alias Apiconsumer.Error

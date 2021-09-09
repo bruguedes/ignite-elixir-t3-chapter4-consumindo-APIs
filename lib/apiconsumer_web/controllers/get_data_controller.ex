@@ -1,7 +1,7 @@
 defmodule ApiconsumerWeb.GetDataController do
   use ApiconsumerWeb, :controller
 
-  alias Apiconsumer.User.Input
+  alias Apiconsumer.GitHub.Input
   alias Ecto.Changeset
 
   alias ApiconsumerWeb.FallbackController
