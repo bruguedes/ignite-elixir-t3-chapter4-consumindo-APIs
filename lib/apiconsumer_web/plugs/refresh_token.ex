@@ -8,11 +8,15 @@ defmodule ApiconsumerWeb.Plugs.RefreshToken do
   def init(options), do: options
 
   def call(%Conn{} = conn, _opts) do
-    ["Bearer  " <> token] = get_req_header(conn, "authorization")
+    ["Bearer " <> token] = get_req_header(conn, "authorization")
 
     case Guardian.refresh(token, ttl: {1, :minute}) do
       {:ok, _old_stuff, {new_token, _new_claims}} ->
-        put_req_header(conn, "authorization", new_token)
+        conn =
+          conn
+          |> put_req_header("authorization", "Bearer #{new_token}")
+
+        conn
 
       _rease ->
         render_error(conn)

@@ -7,6 +7,5 @@ defmodule Apiconsumer.Repo.Migrations.CreateUsersTable do
 
       timestamps()
     end
-
   end
 end

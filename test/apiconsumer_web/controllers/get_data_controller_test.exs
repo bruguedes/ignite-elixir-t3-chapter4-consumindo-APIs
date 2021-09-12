@@ -16,8 +16,6 @@ defmodule ApiconsumerWeb.GetDataControllerTest do
     end
 
     test "sucess, when user name a valid", %{conn: conn, token: token} do
-      # {:ok, user} = Create.call(%{"password" => "123456"})
-      # {:ok, token, _claims} = Guardian.encode_and_sign(user)
       conn = put_req_header(conn, "authorization", "Bearer #{token}")
       params = "test"
 
